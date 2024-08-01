@@ -76,7 +76,7 @@ public class MessageService : IMessageService
             var resultMessage = new ShowMessageDTO()
             {
                 Id = message.Id,
-                UserId = userId ?? "",
+                UserId = message.User.Id ?? "",
                 GroupId = groupId,
                 UserName = message.User.UserName ?? "",
                 MessageText = message.MessageText,

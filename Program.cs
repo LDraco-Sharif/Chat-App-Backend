@@ -24,6 +24,12 @@ builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IGroupService, GroupService>();
 builder.Services.AddTransient<IMessageService, MessageService>();
 
+builder.Services.AddCors(o => o.AddPolicy( "cors", builder =>
+{
+    builder.AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+}));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -35,6 +41,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors("cors");
 app.UseAuthorization();
 
 app.MapControllers();
