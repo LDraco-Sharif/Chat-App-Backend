@@ -67,7 +67,7 @@ public class MessageService : IMessageService
         }
 
         var messages = await messageQuery.Take(quantity)
-                                        .OrderBy(m => m.Id)
+                                        .OrderByDescending(m => m.Id)
                                         .ToListAsync();
 
         List<ShowMessageDTO> resultMessages = new List<ShowMessageDTO>();
