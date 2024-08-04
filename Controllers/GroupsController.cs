@@ -28,8 +28,9 @@ namespace Web_App.Controllers
             }
             else
             {
-                var groupResult = await _groupService.CreateGroup(model.GroupName);
-                if(groupResult == null)
+                var groupResult = await _groupService.CreateGroup(user, model.GroupName);
+                
+                if (groupResult == null)
                 {
                     return BadRequest(new { Message = "Group already exists" });
                 }

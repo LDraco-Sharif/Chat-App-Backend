@@ -12,7 +12,7 @@ public class GroupService: IGroupService
     {
         _context = context;
     }
-    public async Task<Group?> CreateGroup(string groupName)
+    public async Task<Group?> CreateGroup(User user, string groupName)
     {
         var group = await _context.Groups.Where(g =>  g.Name == groupName).FirstOrDefaultAsync();
 
@@ -23,7 +23,8 @@ public class GroupService: IGroupService
                 Name = groupName
             };
             await _context.Groups.AddAsync(newGroup);
-            _context.SaveChanges();
+            newGroup.Users.Add(user);
+            await _context.SaveChangesAsync();
             return newGroup;
         }
         else

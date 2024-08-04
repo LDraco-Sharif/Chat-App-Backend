@@ -63,10 +63,11 @@ public class MessageService : IMessageService
 
         if(startingId != null)
         {
-            messageQuery = messageQuery.Where(m => m.Id <= startingId);
+            messageQuery = messageQuery.Where(m => m.Id < startingId);
         }
 
-        var messages = await messageQuery.Take(quantity)
+        var messages = await messageQuery.Where(m => m.Group.Id == groupId)
+                                        .Take(quantity)
                                         .OrderByDescending(m => m.Id)
                                         .ToListAsync();
 
